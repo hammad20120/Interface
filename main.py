@@ -17,7 +17,6 @@ def read_file(file):
     for l in lines:
         if i != 0:
             strs.append(lines[i].split('\t', 3))
-            print(lines[i])
         i += 1
 
     return strs
