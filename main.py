@@ -56,8 +56,6 @@ def index():
         file = request.files['file']
         file.save(secure_filename('comments'))
         evaluation = read_file('comments')
-        for i in evaluation:
-            print(i)
         return render_template("upload_file.html", evaluation=evaluation, display=True)
     else:
         return render_template("upload_file.html")
