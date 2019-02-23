@@ -111,11 +111,9 @@
 
     $(function () {
 
-      
 
-      $(document).ready(function () {
-        $('#thetable').DataTable();
-      });
+
+      
 
 
       $(document).on('click', '.addRow', function () {
@@ -135,12 +133,12 @@
 
 
         $('#thetable > tbody > tr').eq(index).after(myRow);
-        
+
       });
 
       $(document).on('click', '.remove', function () {
         $(this).parents('tr').remove();
-        
+
       });
     })
   </script>
@@ -150,7 +148,7 @@
     <br><br>
     <input name="file" type="file">
     <br>
-    <input  type="submit" value="Upload">
+    <input type="submit" value="Upload">
   </form>
 
   {% if display %}
@@ -175,12 +173,12 @@
         <tbody>
           {% for e in evaluation %}
           {% set loop1 = loop %}
-          
-          
-          
+
+
+
           <tr>
-              
-            
+
+
             {% set category = e[0] %}
             {% set polarity = e[1] %}
             {% set rev_id = e[2] %}
@@ -221,17 +219,17 @@
 
             <td>
 
-            
+
               <button type="button" class="addRow"> Add Row </button>
               <button type="button" class="remove"> Remove Row </button>
             </td>
 
             <input onclick="return false" style="opacity:0;" type="checkbox" name="check" value='{{e[2], e[3]}}'
               checked />
-            
-             
+
+
           </tr>
-          
+
           {% endfor %}
         </tbody>
       </table>
