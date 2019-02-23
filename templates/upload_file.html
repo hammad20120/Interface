@@ -106,16 +106,14 @@
 </head>
 
 
-<body>
+<body style="background-color:rgb(10, 154, 250)">
   <script>
 
     $(function () {
 
-      
 
-      $(document).ready(function () {
-        $('#thetable').DataTable();
-      });
+
+      
 
 
       $(document).on('click', '.addRow', function () {
@@ -135,20 +133,21 @@
 
 
         $('#thetable > tbody > tr').eq(index).after(myRow);
-        
+
       });
 
       $(document).on('click', '.remove', function () {
         $(this).parents('tr').remove();
-        
+
       });
     })
   </script>
 
 
   <form action="{{ url_for('index') }}" enctype="multipart/form-data" method="POST">
+    <br><br>
     <input name="file" type="file">
-
+    <br>
     <input type="submit" value="Upload">
   </form>
 
@@ -160,24 +159,26 @@
     <br><br>
     <fieldset style="background-color:white;">
       <table id="thetable">
+
         <thead>
           <tr>
             <th>Review ID</th>
             <th>Text</th>
             <th>Category</th>
             <th>Polarity</th>
+            <th></th>
           </tr>
         </thead>
 
         <tbody>
           {% for e in evaluation %}
           {% set loop1 = loop %}
-          
-          
-          
+
+
+
           <tr>
-              
-            {% if loop1.index0 != 0 %}
+
+
             {% set category = e[0] %}
             {% set polarity = e[1] %}
             {% set rev_id = e[2] %}
@@ -186,7 +187,8 @@
             <td style="width:10%;" id="revid">{{rev_id}}</td>
             <td id="textid">{{text}}</td>
 
-            <td id="catid"><select id="catselect" name="category{{ loop1.index0 }}">
+            <td id="catid">
+              <select id="catselect" name="category{{ loop1.index0 }}">
                 {% if category == "presentation" %}
                 <option value="presentation" selected="selected">Presentation</option>
                 <option value="knowledge">Knowledge</option>
@@ -200,10 +202,12 @@
                 <option value="knowledge">Knowledge</option>
                 <option value="grading" selected="selected">Grading</option>
                 {% endif %}
-              </select></td>
+              </select>
+            </td>
 
 
-            <td id="polid"><select id="polselect" name="polarity{{ loop1.index0 }}">
+            <td id="polid">
+              <select id="polselect" name="polarity{{ loop1.index0 }}">
                 {% if polarity == "positive" %}
                 <option value="positive" selected="selected">Positive</option>
                 <option value="negative">Negative</option>
@@ -211,27 +215,28 @@
                 <option value="positive">Positive</option>
                 <option value="negative" selected="selected">Negative</option>
                 {% endif %}
-              </select></td>
+              </select>
 
             <td>
+
+
               <button type="button" class="addRow"> Add Row </button>
               <button type="button" class="remove"> Remove Row </button>
             </td>
 
             <input onclick="return false" style="opacity:0;" type="checkbox" name="check" value='{{e[2], e[3]}}'
               checked />
-            {% endif %}
-             
+
+
           </tr>
-          
+
           {% endfor %}
         </tbody>
       </table>
 
     </fieldset>
-    <br>
 
-    <button type="button" onclick="exportTableToCSV()" id="export">Export</button>
+    <button style="position: absolute;" type="button" onclick="exportTableToCSV()" id="export">Export</button>
 
 
 
