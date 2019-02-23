@@ -9,15 +9,18 @@ app.secret_key = 'a key'
 
 def read_file(file):
     i = 0
+    strs = []
     with open(file, 'r', encoding="utf8") as f:
         lines = f.readlines()
 
     f.close()
     for l in lines:
-        lines[i] = lines[i].split('\t', 3)
+        if i != 0:
+            strs.append(lines[i].split('\t', 3))
+            print(lines[i])
         i += 1
 
-    return lines
+    return strs
 
 
 @app.route('/submit', methods=['POST'])
@@ -54,6 +57,8 @@ def index():
         file = request.files['file']
         file.save(secure_filename('comments'))
         evaluation = read_file('comments')
+        for i in evaluation:
+            print(i)
         return render_template("upload_file.html", evaluation=evaluation, display=True)
     else:
         return render_template("upload_file.html")
