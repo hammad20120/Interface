@@ -1,10 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
+
+<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+</style>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <style>
+  .wrapper {
+    text-align: center;
+    margin: auto;
+  }
+
+
+  .button {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #f4511e;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 28px;
+    padding: 20px;
+    width: 400px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+
+  }
+
+  .button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+
+  .button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+
+  .button:hover span {
+    padding-right: 25px;
+  }
+
+  .button:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+
   table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 100%;
+    width: 80%;
+    margin: 1em auto;
   }
 
   td,
@@ -17,16 +75,11 @@
   tr:nth-child(even) {
     background-color: #dddddd;
   }
-</style>
 
-<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+  tr:nth-child(odd) {
+    background-color: #ffffff;
+  }
 </style>
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script>
 
   function downloadCSV(csv, filename) {
@@ -111,11 +164,6 @@
 
     $(function () {
 
-
-
-      
-
-
       $(document).on('click', '.addRow', function () {
         var myRow = $(this).parents('tr').clone();
         var index = $(this).parents('tr').index();
@@ -146,9 +194,12 @@
 
   <form action="{{ url_for('index') }}" enctype="multipart/form-data" method="POST">
     <br><br>
-    <input name="file" type="file">
-    <br>
-    <input type="submit" value="Upload">
+    <div class="wrapper">
+      <input style="padding-left:46%;" name="file" type="file">
+      <br>
+      <input  type="submit" value="Upload">
+    </div>
+
   </form>
 
   {% if display %}
@@ -156,88 +207,85 @@
 
 
 
-    <br><br>
-    <fieldset style="background-color:white;">
-      <table id="thetable">
 
-        <thead>
-          <tr>
-            <th>Review ID</th>
-            <th>Text</th>
-            <th>Category</th>
-            <th>Polarity</th>
-            <th></th>
-          </tr>
-        </thead>
+    <table id="thetable">
 
-        <tbody>
-          {% for e in evaluation %}
-          {% set loop1 = loop %}
+      <thead>
+        <tr>
+          <th>Review ID</th>
+          <th>Text</th>
+          <th>Category</th>
+          <th>Polarity</th>
+          <th></th>
+        </tr>
+      </thead>
 
+      <tbody>
+        {% for e in evaluation %}
+        {% set loop1 = loop %}
 
-
-          <tr>
+        <tr>
 
 
-            {% set category = e[0] %}
-            {% set polarity = e[1] %}
-            {% set rev_id = e[2] %}
-            {% set text = e[3] %}
+          {% set category = e[0] %}
+          {% set polarity = e[1] %}
+          {% set rev_id = e[2] %}
+          {% set text = e[3] %}
 
-            <td style="width:10%;" id="revid">{{rev_id}}</td>
-            <td id="textid">{{text}}</td>
+          <td style="width:10%;" id="revid">{{rev_id}}</td>
+          <td id="textid">{{text}}</td>
 
-            <td id="catid">
-              <select id="catselect" name="category{{ loop1.index0 }}">
-                {% if category == "presentation" %}
-                <option value="presentation" selected="selected">Presentation</option>
-                <option value="knowledge">Knowledge</option>
-                <option value="grading">Grading</option>
-                {% elif category == "knowledge" %}
-                <option value="presentation">Presentation</option>
-                <option value="knowledge" selected="selected">Knowledge</option>
-                <option value="grading">Grading</option>
-                {% else %}
-                <option value="presentation">Presentation</option>
-                <option value="knowledge">Knowledge</option>
-                <option value="grading" selected="selected">Grading</option>
-                {% endif %}
-              </select>
-            </td>
-
-
-            <td id="polid">
-              <select id="polselect" name="polarity{{ loop1.index0 }}">
-                {% if polarity == "positive" %}
-                <option value="positive" selected="selected">Positive</option>
-                <option value="negative">Negative</option>
-                {% else %}
-                <option value="positive">Positive</option>
-                <option value="negative" selected="selected">Negative</option>
-                {% endif %}
-              </select>
-
-            <td>
+          <td id="catid">
+            <select id="catselect" name="category{{ loop1.index0 }}">
+              {% if category == "presentation" %}
+              <option value="presentation" selected="selected">Presentation</option>
+              <option value="knowledge">Knowledge</option>
+              <option value="grading">Grading</option>
+              {% elif category == "knowledge" %}
+              <option value="presentation">Presentation</option>
+              <option value="knowledge" selected="selected">Knowledge</option>
+              <option value="grading">Grading</option>
+              {% else %}
+              <option value="presentation">Presentation</option>
+              <option value="knowledge">Knowledge</option>
+              <option value="grading" selected="selected">Grading</option>
+              {% endif %}
+            </select>
+          </td>
 
 
-              <button type="button" class="addRow"> Add Row </button>
-              <button type="button" class="remove"> Remove Row </button>
-            </td>
+          <td id="polid">
+            <select id="polselect" name="polarity{{ loop1.index0 }}">
+              {% if polarity == "positive" %}
+              <option value="positive" selected="selected">Positive</option>
+              <option value="negative">Negative</option>
+              {% else %}
+              <option value="positive">Positive</option>
+              <option value="negative" selected="selected">Negative</option>
+              {% endif %}
+            </select>
 
-            <input onclick="return false" style="opacity:0;" type="checkbox" name="check" value='{{e[2], e[3]}}'
-              checked />
+          <td>
 
 
-          </tr>
+            <button type="button" class="addRow"> Add Row </button>
+            <button type="button" class="remove"> Remove Row </button>
+          </td>
 
-          {% endfor %}
-        </tbody>
-      </table>
+          <input onclick="return false" style="opacity:0;" type="checkbox" name="check" value='{{e[2], e[3]}}'
+            checked />
 
-    </fieldset>
 
-    <button style="position: absolute;" type="button" onclick="exportTableToCSV()" id="export">Export</button>
+        </tr>
 
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+    <div class="wrapper">
+      <button class="button" type="button" onclick="exportTableToCSV()" id="export"><span>Export to CSV </span></button>
+    </div>
 
 
   </form>
