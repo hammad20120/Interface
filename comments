@@ -8,12 +8,3 @@ presentation	positive	4	Teacher is knowledgable
 knowledge	positive	4	Teacher is knowledgable
 presentation	negative	4	classes are dry
 presentation	negative	5	Dry classes
-presentation	positive	0	This teacher is good
-knowledge	positive	0	This teacher is good
-presentation	negative	1	Classes are boring
-grading	negative	2	He is strict
-presentation	positive	3	Very interesting classes
-presentation	positive	4	Teacher is knowledgable
-knowledge	positive	4	Teacher is knowledgable
-presentation	negative	4	classes are dry
-presentation	negative	5	Dry classes
