@@ -1,13 +1,14 @@
-from flask import Flask, request, render_template, flash, redirect, url_for, Response, send_file
+from flask import Flask, request, render_template
 from werkzeug.utils import secure_filename
-from datetime import datetime
-import pandas
+
 
 app = Flask(__name__)
 app.secret_key = 'a key'
 
 catlist = ['grading', 'knowledge', 'presentation', 'counselling', 'punctuality', 'favoritism']
-columnHeader = ['Review ID','Text','Category','Polarity']
+columnHeader = ['Review ID', 'Text', 'Category', 'Polarity']
+
+
 def read_file(file):
     i = 0
     strs = []
@@ -29,9 +30,10 @@ def index():
         file = request.files['file']
         file.save(secure_filename('comments'))
         evaluation = read_file('comments')
-        return render_template("upload_file.html", catlist=catlist, columnHeader=columnHeader, evaluation=evaluation, display=True)
+        return render_template("upload_file.html", catlist=catlist, columnHeader=columnHeader, evaluation=evaluation,
+                               display=True)
     else:
         return render_template("upload_file.html")
 
 
-app.run(debug=True, host= '0.0.0.0')
+app.run(debug=True, host='0.0.0.0')
