@@ -68,10 +68,11 @@
           <select id="catselect" name="category">
             {% for categories in catlist %}
             {% if categories == category %}
-            <option selected="selected" value="{{ category}}">{{ categories }}</option>
-
+            <option selected="selected" value="{{ category }}">{{ categories }}</option>
+            {% elif categories == "Choose Category" %}
+            <option value="">{{ categories }}</option>
             {% else %}
-            <option value="{{ category }}">{{ categories }}</option>
+            <option value="{{ categories }}">{{ categories }}</option>
             {% endif %}
             {% endfor %}
           </select>
