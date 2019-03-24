@@ -5,7 +5,7 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 app.secret_key = 'a key'
 
-catlist = ['grading', 'knowledge', 'presentation', 'counselling', 'punctuality', 'favoritism']
+catlist = ['Choose Category','grading', 'knowledge', 'presentation', 'counselling', 'punctuality', 'favoritism']
 columnHeader = ['Review ID', 'Text', 'Category', 'Polarity']
 
 

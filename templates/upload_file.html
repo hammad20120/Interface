@@ -68,9 +68,10 @@
           <select id="catselect" name="category">
             {% for categories in catlist %}
             {% if categories == category %}
-            <option selected="selected" value="{{ categories }}">{{ categories }}</option>
+            <option selected="selected" value="{{ category}}">{{ categories }}</option>
+
             {% else %}
-            <option value="{{ categories }}">{{ categories }}</option>
+            <option value="{{ category }}">{{ categories }}</option>
             {% endif %}
             {% endfor %}
           </select>
@@ -81,11 +82,17 @@
         <td id="polid">
           <select id="polselect" name="polarity">
             {% if polarity == "positive" %}
+            <option value="">Choose Polarity</option>
             <option selected="selected" value="positive">Positive</option>
             <option value="negative">Negative</option>
-            {% else %}
+            {% elif polarity == "negative" %}
+            <option value="">Choose Polarity</option>
             <option value="positive">Positive</option>
             <option selected="selected" value="negative">Negative</option>
+            {% else %}
+            <option selected="selected" value="">Choose Polarity</option>
+            <option value="positive">Positive</option>
+            <option value="negative">Negative</option>
             {% endif %}
           </select>
 
