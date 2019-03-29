@@ -29,7 +29,8 @@
   <form action="{{ url_for('index') }}" enctype="multipart/form-data" method="POST">
     <br><br>
     <div class="wrapper">
-      <input name="file" style="padding-left:46%;" type="file">
+      <input name="file" style="margin-left:42%;" type="file" class="custom-file-input">
+      <!-- <label for="file">Choose a file</label> -->
       <br>
       <input type="submit" value="Upload">
     </div>
@@ -66,11 +67,10 @@
         <td id="catid">
 
           <select id="catselect" name="category">
+            <option selected="selected" value="">Choose Category</option>
             {% for categories in catlist %}
             {% if categories == category %}
             <option selected="selected" value="{{ category }}">{{ categories }}</option>
-            {% elif categories == "Choose Category" %}
-            <option value="">{{ categories }}</option>
             {% else %}
             <option value="{{ categories }}">{{ categories }}</option>
             {% endif %}
@@ -82,7 +82,7 @@
 
         <td id="polid">
           <select id="polselect" name="polarity">
-            {% if polarity == "positive" %}
+            <!-- {% if polarity == "positive" %}
             <option value="">Choose Polarity</option>
             <option selected="selected" value="positive">Positive</option>
             <option value="negative">Negative</option>
@@ -94,7 +94,16 @@
             <option selected="selected" value="">Choose Polarity</option>
             <option value="positive">Positive</option>
             <option value="negative">Negative</option>
+            {% endif %} -->
+            <option value="">Choose Polarity</option>
+            {% for polarities in polList %}
+            {% if polarities == polarity %}
+            <option selected="selected" value="{{ polarity }}">{{ polarity }}</option>
+            {% else %}
+            <option value="{{ polarity }}">{{ polarity }}
             {% endif %}
+            {% endfor %}
+            </option>
           </select>
 
         <td>
@@ -109,9 +118,9 @@
     </tbody>
   </table>
 
-
+  
   <div class="wrapper">
-    <button class="button" id="export" onclick="exportTableToCSV()" type="button"><span>Export to CSV </span></button>
+    <button class="button" id="export" onclick="exportTableToCSV('{{ filename }}')" type="button"><span>Export to CSV </span></button>
   </div>
 
 

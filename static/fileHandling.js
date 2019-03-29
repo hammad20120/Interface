@@ -24,10 +24,10 @@ function downloadCSV(csv, filename) {
     downloadLink.click();
 }
 
-function exportTableToCSV() {
+function exportTableToCSV(filename) {
     var csv = [];
     var rows = document.querySelectorAll("table tr");
-
+    //console.log("Here");
     for (var i = 0; i < rows.length; i++) {
 
 
@@ -60,10 +60,10 @@ function exportTableToCSV() {
     }
 
     // Download CSV file
-    var filename;
-    var today = new Date();
-    var time = today.getDate() + "-" + today.getHours() + "-" + today.getMinutes() + "-" + today.getSeconds();
-    filename = time + ".csv";
+    // var filename;
+    // var today = new Date();
+    // var time = today.getDate() + "-" + today.getHours() + "-" + today.getMinutes() + "-" + today.getSeconds();
+     filename = filename + "-mod" + ".csv";
     downloadCSV(csv.join("\n"), filename);
 }
 

@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, render_template
 from werkzeug.utils import secure_filename
 
@@ -5,8 +6,9 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 app.secret_key = 'a key'
 
-catlist = ['Choose Category','grading', 'knowledge', 'presentation', 'counselling', 'punctuality', 'favoritism']
+catlist = ['grading', 'knowledge', 'presentation', 'counseling', 'punctuality', 'favoritism']
 columnHeader = ['Review ID', 'Text', 'Category', 'Polarity']
+polList = ['positive', 'negative', 'neutral']
 
 
 def read_file(file):
@@ -30,10 +32,11 @@ def index():
         file = request.files['file']
         file.save(secure_filename('comments'))
         evaluation = read_file('comments')
-        return render_template("upload_file.html", catlist=catlist, columnHeader=columnHeader, evaluation=evaluation,
+
+        return render_template("upload_file.html", polList=polList , filename=file.filename.replace('.csv',''), catlist=catlist, columnHeader=columnHeader, evaluation=evaluation,
                                display=True)
     else:
         return render_template("upload_file.html")
 
 
-app.run(debug=True, host='0.0.0.0')
+app.run(debug=True)
