@@ -30,7 +30,6 @@
     <br><br>
     <div class="wrapper">
       <input name="file" style="margin-left:42%;" type="file" class="custom-file-input">
-      <!-- <label for="file">Choose a file</label> -->
       <br>
       <input type="submit" value="Upload">
     </div>
@@ -82,19 +81,6 @@
 
         <td id="polid">
           <select id="polselect" name="polarity">
-            <!-- {% if polarity == "positive" %}
-            <option value="">Choose Polarity</option>
-            <option selected="selected" value="positive">Positive</option>
-            <option value="negative">Negative</option>
-            {% elif polarity == "negative" %}
-            <option value="">Choose Polarity</option>
-            <option value="positive">Positive</option>
-            <option selected="selected" value="negative">Negative</option>
-            {% else %}
-            <option selected="selected" value="">Choose Polarity</option>
-            <option value="positive">Positive</option>
-            <option value="negative">Negative</option>
-            {% endif %} -->
             <option value="">Choose Polarity</option>
             {% for polarities in polList %}
             {% if polarities == polarity %}
